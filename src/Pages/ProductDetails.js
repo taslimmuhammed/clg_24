@@ -4,12 +4,9 @@ import PatentCardfull from "../Components/PatentCardFull";
 import { Chat } from "@pushprotocol/uiweb";
 import { useContext, useState, useEffect } from "react";
 import {Navigate, useNavigate} from 'react-router-dom';
-
-// import { useState, useEffect,useContext } from "react";
-// import {Link, useNavigate} from 'react-router-dom';
-// import { AuthContext } from '../Context/AuthContext';
 import Form from "../Components/Form";
 import { EthersContext } from "../Context/EthersContext";
+
 const MarketPlace = () => {
     const [Data, setData] = useState([])
     const {Sell, getProSellDetails} = useContext(EthersContext)

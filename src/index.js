@@ -17,7 +17,7 @@ root.render(
     <ToastContainer />
     {/* /IIm1xrgYITqBO8GZiAYKAhOlYiD9IDehX9q5CDdUbdAdHyoIufCc058LW5RAcitNAdFinBqC6T6KVK4XZ-1F3Q
  */}
-    <ThirdwebProvider clientId="d38b4842e9d041746be46984e4baab53" thirdwebApiKey="IIm1xrgYITqBO8GZiAYKAhOlYiD9IDehX9q5CDdUbdAdHyoIufCc058LW5RAcitNAdFinBqC6T6KVK4XZ-1F3Q" activeChain="mumbai">
+    <ThirdwebProvider clientId="d38b4842e9d041746be46984e4baab53">
       <Router>
         <Ethers>
           <App />

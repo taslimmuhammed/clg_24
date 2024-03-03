@@ -4,8 +4,9 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import Home from './Pages/Home';
 import Create from './Pages/Create';
 import Transfer from './Components/Transfer';
-import MyWorks from './Components/MyWorks';
+import MyWorks from './Pages/MyWorks';
 import View from './Pages/View';
+import MyView from './Pages/MyView';
 import LendingPage from './Pages/LendingPage';
 import BuyPage from './Pages/BuyPage';
 import BuyMarket from './Pages/BuyMarket';
@@ -20,9 +21,9 @@ function App() {
         <Routes>
           <Route path='/' exact element={<Home />}></Route>
           <Route path='/create' element={<Create />}></Route>
-          <Route path="ips/:id" element={<View />} />
-          <Route path='/myips' element={<MyWorks />}></Route>
-          <Route path='/myips/:id' element={<MyWorks />}></Route>
+          <Route path="ip/:id" element={<View />} />
+          <Route path='/you' element={<MyWorks />}></Route>
+          <Route path='/you/:id' element={<MyView />}></Route>
           <Route path='/buy' element={<BuyMarket />}></Route>
           <Route path='/lend' element={<LendMarket />}></Route>
           <Route path='/lend/:id' element={<LendingPage />}></Route>

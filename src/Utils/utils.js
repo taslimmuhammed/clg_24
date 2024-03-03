@@ -93,7 +93,13 @@ export const hexTimeToUnix = (hexTime) => {
         return 0
     }
 }
-
+export const shortenDesc = (desc) => {
+    if (desc && desc.length > 30) {
+        return desc.substring(0, 30) + '...'
+    } else {
+        return desc;
+    }
+}
 //0 - 0x0000000000000000000000000000000000000000
 
 

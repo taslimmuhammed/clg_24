@@ -1,8 +1,10 @@
-import React from 'react'
-import { shortenAddress, shortenDesc } from '../Utils/utils'
 import Button from 'react-bootstrap/Button';
-
-function LendMarket() {
+import React from 'react'
+import { shortenAddress } from '../Utils/ShortenAddress';
+import { shortenDesc } from '../Utils/utils';
+import { Link, useNavigate } from 'react-router-dom';
+function MyWorks() {
+  const navigate = useNavigate()
   const data = [
     {
       cid: "1233",
@@ -31,10 +33,10 @@ function LendMarket() {
   ]
   return (
     <div className="gradient-bg-welcome ">
-      <h1 className='text-center text-white text-5xl py-5'>Lend IP's</h1>
+      <h1 className='text-center text-white text-5xl py-5'>Your IP's</h1>
       <div class="flex w-full justify-center">
         <div>
-          {/* heading */}
+          {/*table heading */}
           <div className='flex  text-xl bg-yellow-100 bg-opacity-30 backdrop-blur-lg rounded drop-shadow-lg mr-5 mb-3 text-white px-4  text-center'>
             <div className="w-40 py-4">CID</div>
             <div className="w-40 py-4">Name</div>
@@ -44,7 +46,7 @@ function LendMarket() {
             <div className="w-40 py-4">Price[Matic]</div>
             <div className="w-40 py-4">View</div>
           </div>
-          {/* items */}
+          {/* table contents */}
           {data.map((item, index) => {
             return (
               <div className='flex  text-l bg-yellow-100 bg-opacity-20 backdrop-blur-lg rounded drop-shadow-lg py-1 mr-5 mb-3 text-white px-4 text-center'>
@@ -54,7 +56,9 @@ function LendMarket() {
                 <div className="w-40 py-2">{item.Creator}</div>
                 <div className="w-64 py-2">{shortenAddress(item.CurrentOwner)}</div>
                 <div className="w-40 py-2">{item.Price} M</div>
-                <div className="w-40 "><Button variant="outline-warning">View</Button></div>
+                <div className="w-40 ">
+                  <Button variant="outline-warning" onClick={() => navigate(`/you/${item.cid}`)} >View</Button>
+                </div>
               </div>
             )
           })}
@@ -63,5 +67,4 @@ function LendMarket() {
     </div>
   )
 }
-
-export default LendMarket
+export default MyWorks

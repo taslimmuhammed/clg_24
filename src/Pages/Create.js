@@ -4,15 +4,21 @@ import { EthersContext } from "../Context/EthersContext";
 import '../Styles/Create.css'
 import { useStorage } from "@thirdweb-dev/react";
 import { useStorageUpload } from "@thirdweb-dev/react";
+import { ThirdwebStorage } from "@thirdweb-dev/storage";
 function Create() {
-    const {  } = useContext(EthersContext)
+    const { } = useContext(EthersContext)
 
     const companyCommonStyles = "min-h-[70px] sm:px-0 px-2 sm:min-w-[120px] flex justify-center items-center border-[0.5px] border-gray-400 text-sm font-light text-white";
     const inputStyle = "my-2 w-full rounded-sm p-2 outline-none bg-transparent text-white border-none text-sm white-glassmorphism"
     const [Name, setName] = useState(null)
-    const storage = useStorage();
-    const { mutateAsync: upload, isLoading:uploading } = useStorageUpload();
+    //const storage = useStorage();
+    const storage = new ThirdwebStorage({
+        clientId: "d38b4842e9d041746be46984e4baab53", // You can get one from dashboard settings
+    });
+    const { mutateAsync: upload, isLoading: uploading } = useStorageUpload();
     const [Files, setFiles] = useState(null)
+    const [Creator, setCreator] = useState("")
+    const [Description, setDescription] = useState("")
     const [isLoading, setIsLoading] = useState(false)
     // const storage = new ThirdwebStorage({
     //     secretKey: "ExTZrf-HBZHOqJpRNGhr1BzTjSbDphNHQe4Ni3RGi4_qIBmZgBf8RA_hrvjLBAFClQYCqSHp2sJIoFqX5dteuA", // You can get one from dashboard settings
@@ -24,7 +30,7 @@ function Create() {
         // // // This will log a URL like ipfs://QmWgbcjKWCXhaLzMz4gNBxQpAHktQK6MkLvBkKXbsoWEEy/0
         // console.info(uri);
         setIsLoading(false)
-        
+
 
         // // Here we a URL with a gateway that we can look at in the browser
         // const url = await storage.resolveScheme(uri);
@@ -43,27 +49,27 @@ function Create() {
         // }
     }
 
-    const uploadData = async() => {
+    const uploadData = async () => {
         // Get any data that you want to upload
 
         // And upload the data with the upload function
-        if(Files==null) return alert("No files selected")
+        if (Files == null) return alert("No files selected")
         try {
-            const uris = await upload({ data: [Files[0]], options: { uploadWithGatewayUrl: true, uploadWithoutDirectory: true }, });
-            console.log(uris);
-            // console.log(Files);
-            // const phototURI = await storage?.upload(Files)
-            // const metaData = {
-            //     "name": "Test",
-            //     "description": "Test",
-            //     "file": phototURI
-            // }
-            // const uri = await storage?.upload(metaData)
-            // console.log(uri)
+            // const uris = await upload({ data: [Files[0]], options: { uploadWithGatewayUrl: true, uploadWithoutDirectory: true }, });
+            // console.log(uris);
+            console.log(Files);
+            const phototURI = await storage?.upload({data:Files})
+            const metaData = {
+                "name": "Test",
+                "description": "Test",
+                "file": phototURI
+            }
+            const uri = await storage?.upload(metaData)
+            console.log(uri)
         } catch (error) {
             console.log(error);
         }
-        
+
     }
     return (
         <div className='gradient-bg-welcome flex w-full min-h-screen justify-center items-center'>
