@@ -37,7 +37,7 @@ function MyWorks() {
       <div class="flex w-full justify-center">
         <div>
           {/*table heading */}
-          <div className='flex  text-xl bg-yellow-100 bg-opacity-30 backdrop-blur-lg rounded drop-shadow-lg mr-5 mb-3 text-white px-4  text-center'>
+          <div className='flex text-xl bg-yellow-100 bg-opacity-30 backdrop-blur-lg rounded drop-shadow-lg mr-5 mb-3 text-white px-4  text-center'>
             <div className="w-40 py-4">CID</div>
             <div className="w-40 py-4">Name</div>
             <div className="w-80 py-4">Description</div>

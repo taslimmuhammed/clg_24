@@ -26,27 +26,7 @@ function Create() {
     const handleSubmit = async () => {
         setIsLoading(true)
         await uploadData()
-        // const uri = await storage.upload(Files);
-        // // // This will log a URL like ipfs://QmWgbcjKWCXhaLzMz4gNBxQpAHktQK6MkLvBkKXbsoWEEy/0
-        // console.info(uri);
         setIsLoading(false)
-
-
-        // // Here we a URL with a gateway that we can look at in the browser
-        // const url = await storage.resolveScheme(uri);
-        // // This will log a URL like https://ipfs.thirdwebstorage.com/ipfs/QmWgbcjKWCXhaLzMz4gNBxQpAHktQK6MkLvBkKXbsoWEEy/0
-        // console.info(url);
-
-        // // You can also download the data from the uri
-        // const data = await storage.downloadJSON(uri);
-        // if (cid) {
-        //     const count = await createCase(cid,Name)
-        //     if (count == null) {
-        //         alert("Sorry, faced some technichal issues please try again later")
-        //     }
-        //     else { alert(`Upload Succeful . Please note the Id for your case : ${count}`) }
-        //     console.log(count)
-        // }
     }
 
     const uploadData = async () => {
@@ -58,14 +38,16 @@ function Create() {
             // const uris = await upload({ data: [Files[0]], options: { uploadWithGatewayUrl: true, uploadWithoutDirectory: true }, });
             // console.log(uris);
             console.log(Files);
-            const phototURI = await storage?.upload({data:Files})
-            const metaData = {
-                "name": "Test",
-                "description": "Test",
-                "file": phototURI
-            }
-            const uri = await storage?.upload(metaData)
-            console.log(uri)
+            const uri = await storage?.upload(
+                {
+                    name: Name,
+                    creator: Creator,
+                    descreption:Description,
+                    time: Date.now(),
+                    files: Files,
+                }
+            )
+            console.log({ uri })
         } catch (error) {
             console.log(error);
         }
@@ -78,8 +60,12 @@ function Create() {
                 <div className="p-5  flex flex-col justify-start items-center text-left blue-glassmorphism  border-gray-400">
                     <div>
                         <div className="">
-                            <div className="text-white w-full text-sm mt-3">Name of your work  </div>
-                            <input placeholder="Name of your work" className={inputStyle} type="text" onChange={(e) => { setName(e.target.value) }} />
+                            <div className="text-white w-full text-sm mt-3">Name of work  </div>
+                            <input placeholder="project name" className={inputStyle} type="text" onChange={(e) => { setName(e.target.value) }} />
+                            <div className="text-white w-full text-sm mt-3">A brief description about work</div>
+                            <input placeholder="this project is about..." className={inputStyle} type="text" onChange={(e) => { setDescription(e.target.value) }} />
+                            <div className="text-white w-full text-sm mt-3">Your name </div>
+                            <input placeholder="Dr.Do Little" className={inputStyle} type="text" onChange={(e) => { setCreator(e.target.value) }} />
                             <div className="text-white w-full text-sm mt-3">Upload files (* including large documents, designs, musics, photos etc ) </div>
                             <input className={inputStyle} type="file" multiple onChange={(e) => { setFiles(e.target.files) }} />
                             <div className="h-[1px] w-full bg-gray-400 my-2" />

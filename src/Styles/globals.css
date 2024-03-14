@@ -96,6 +96,9 @@ background: linear-gradient(130deg,  #9945FF 0%, #14F195 100%); */
 .max-800{
   max-width: 1200px;
 }
+.text-xxs{
+  font-size: 10px;
+}
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

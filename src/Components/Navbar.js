@@ -20,7 +20,7 @@ const Navbar = () => {
         <img src={logo} alt="logo" className="w-32 cursor-pointer" />
       </div>
       <ul className="text-white md:flex hidden list-none flex-row justify-between items-center flex-initial">
-      <li onClick={()=>navigate('/myips')} className="navbar_item">Your Works</li>
+      <li onClick={()=>navigate('/you')} className="navbar_item">Your Works</li>
       <li onClick={()=>navigate('/create')} className="navbar_item">Create</li>
       <li onClick={()=>navigate('/lend')} className="navbar_item">lend</li>
       <li onClick={() => navigate('/buy')} className="navbar_item">buy</li>
@@ -45,10 +45,10 @@ const Navbar = () => {
             flex flex-col justify-start items-end rounded-md blue-glassmorphism text-white animate-slide-in"
           >
             <li className="text-xl w-full my-2"><AiOutlineClose onClick={() => setToggleMenu(false)} /></li>
-            <NavBarItem  title="Your Works" classprops="my-2 text-lg"  onClick={()=>navigate('/myips')}></NavBarItem>
+            <NavBarItem  title="Your Works" classprops="my-2 text-lg"  onClick={()=>navigate('/you')}></NavBarItem>
             <NavBarItem  title="Create" classprops="my-2 text-lg"onClick={()=>navigate('/create')} ></NavBarItem>
-            <NavBarItem  title="lend" classprops="my-2 text-lg" onClick={()=>navigate('/lend')} ></NavBarItem>
-            <NavBarItem title="buy" classprops="my-2 text-lg" onClick={() => navigate('/buy')}></NavBarItem>
+            <NavBarItem  title="Lend" classprops="my-2 text-lg" onClick={()=>navigate('/lend')} ></NavBarItem>
+            <NavBarItem title="Buy" classprops="my-2 text-lg" onClick={() => navigate('/buy')}></NavBarItem>
           </ul>
         )}
       </div>
