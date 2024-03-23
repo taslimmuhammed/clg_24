@@ -1,5 +1,5 @@
 import React from 'react'
-import { shortenAddress, shortenDesc } from '../Utils/utils'
+import { shortenAddress, shortenDesc } from '../Utils/convertions'
 import Button from 'react-bootstrap/Button';
 
 function LendMarket() {

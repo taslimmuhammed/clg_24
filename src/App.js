@@ -12,6 +12,9 @@ import BuyPage from './Pages/BuyPage';
 import BuyMarket from './Pages/BuyMarket';
 import LendMarket from './Pages/LendMarket';
 import SearchPage from './Pages/SearchPage';
+import ManagePage from './Pages/ManagePage';
+import HistoryPage from './Pages/HistoryPage';
+import FilesPage from './Pages/FilesPage';
 
 function App() {
 
@@ -24,6 +27,9 @@ function App() {
           <Route path="ip/:id" element={<View />} />
           <Route path='/you' element={<MyWorks />}></Route>
           <Route path='/you/:id' element={<MyView />}></Route>
+          <Route path='/you/:id/manage' element={<ManagePage />}></Route>
+          <Route path='/:id/history' element={<HistoryPage/>}></Route>
+          <Route path='/:id/files' element={<FilesPage/>}></Route>
           <Route path='/buy' element={<BuyMarket />}></Route>
           <Route path='/lend' element={<LendMarket />}></Route>
           <Route path='/lend/:id' element={<LendingPage />}></Route>

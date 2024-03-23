@@ -52,7 +52,8 @@ contract IPFY{
 
     function putforSell(uint256 _id,uint256 _price) public {
         require(IPDetails[_id].currenOwner == msg.sender, "Only owner can modify");
-        require(!IPDetails[_id].lendable, "Already in");
+        require(!IPDetails[_id].buyable, "Already in");
+        require(checkSellablity( _id),"currently on lend");
         IPDetails[_id].lendable = false;
         IPDetails[_id].buyable = true;
         removeFromLendingMarket(_id);
@@ -66,6 +67,7 @@ contract IPFY{
     function putforLend(uint256 _id,uint256 _price ) public {
         require(IPDetails[_id].currenOwner == msg.sender, "Only owner can modify");
         require(!IPDetails[_id].lendable, "Already in");
+        require(checkLendablity(_id),"Already on lend");
         IPDetails[_id].lendable = true;
         IPDetails[_id].buyable = false;
         removeFromBuyingMarket(_id);
@@ -77,7 +79,7 @@ contract IPFY{
         IPDetails[_id].lendingPrice = _price;
     }
     function buy(uint256 _id) public payable  {
-        require(checkBuyablity(_id), "Not for sale");
+        require(IPDetails[_id].buyable, "Not for sale");
         require(IPDetails[_id].buyingPrice<=msg.value,"please send the correct amount");
         removeFromBuyingMarket(_id);
         IPDetails[_id].buyable = false;
@@ -96,7 +98,7 @@ contract IPFY{
     
     function lend(uint256 _id, uint256 months) public payable {
         uint256 totalMoney = months*IPDetails[_id].lendingPrice;
-        require(checkLendablity(_id), "Not for sale");
+        require(IPDetails[_id].lendable, "Not for sale");
         require(totalMoney<=msg.value,"please send the correct amount");
         require(months<=24 && months>0,"max 24 months");
         removeFromLendingMarket(_id);
@@ -108,15 +110,22 @@ contract IPFY{
     }
 
     function checkLendablity(uint256 _id)public view returns (bool){
+        if(IPDetails[_id].lendable || IPDetails[_id].buyable) return false;
+        require(!checkCurrentLendingStatus(_id), "this project is currently on lend");
+        return true;
+    }
+    function checkSellablity(uint256 _id) public view returns (bool){
+        if(IPDetails[_id].lendable || IPDetails[_id].buyable) return false;
+        require(!checkCurrentLendingStatus(_id), "this project is currently on lend");
+        return true;
+    }
+    function checkCurrentLendingStatus(uint256 _id)public view returns (bool){
         if(IPDetails[_id].lendingHistory.length>0){
             if(IPDetails[_id]
             .lendingHistory[IPDetails[_id].lendingHistory.length-1]
-            .end > block.timestamp) return false;
+            .end > block.timestamp) return true;
         }
-        return IPDetails[_id].lendable;
-    }
-    function checkBuyablity(uint256 _id) public view returns (bool){
-        return IPDetails[_id].buyable;
+        return false;
     }
     function checkIPOwner(uint256 _id, address _wallet)public view returns (bool){
         return (_wallet==IPDetails[_id].currenOwner);
@@ -219,4 +228,12 @@ contract IPFY{
         IPDetails[_id].buyable = false;
         removeFromBuyingMarket(_id);
     }
+    function getUsergetUserLendings(address _user) public  view returns(Lend[] memory){
+        return userLends[_user];
+    }
+    function getIPDetails(uint256 _id) public  view returns(IP memory){
+        return IPDetails[_id];
+    }
+    //getUserLendings
+    //getIPDetails
 }

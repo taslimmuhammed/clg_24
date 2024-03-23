@@ -2,20 +2,22 @@ import { ethers } from "ethers";
 import { createContext, useState, useEffect } from "react";
 import { abi } from "../Utils/abi";
 import { useNavigate } from "react-router-dom";
+import { stringToBigInt } from "../Utils/convertions";
 
 export const EthersContext = createContext(null);
 const { ethereum } = window;
 if (!ethereum) alert("Please install metamask to use the application");
 
 export default function Ethers({ children }) {
-  const contractAddress = "0x1E1AB99a66E1CCb2873405AC7c9BA80a82ce475C";
+  const contractAddress = "0x4A6F2bB531dCF92ce5E2f0165DA0a326CDEC0DAE";
   const [currentAccount, setCurrentAccount] = useState(null);
   const provider = new ethers.providers.Web3Provider(ethereum);
   const signer = provider.getSigner();
   const [Contract, setContract] = useState(
     new ethers.Contract(contractAddress, abi, signer)
   );
-  //const navigate = useNavigate();
+
+  const navigate = useNavigate();
 
   const checkIfWalletIsConnect = async () => {
     try {
@@ -27,6 +29,7 @@ export default function Ethers({ children }) {
         setCurrentAccount(accounts[0]);
       } else {
         alert("No accounts found");
+        navigate('/')
       }
     } catch (error) {
       console.log(error);
@@ -47,15 +50,15 @@ export default function Ethers({ children }) {
   };
 
 
-  const createIP = async (uri,name) => {
+  const createIP = async (uri) => {
     try {
       const contract = getContract();
-      let res = await contract.createIP(uri,name);
+      let res = await contract.createIP(uri);
       await res.wait();
-      alert(`Succefully created IP`);
-      return 2;
+      return true;
     } catch (e) {
       console.log(e);
+      return false;
     }
   };
 
@@ -132,7 +135,7 @@ export default function Ethers({ children }) {
   const withdrwLend = async (id) => {
     try {
       const contract = getContract();
-      let res = await contract.withdrwLend(id); //convert
+      let res = await contract.withdrwLend(id); 
       await res.wait();
       alert(`Transaction Succeful`);
     } catch (e) {
@@ -142,7 +145,7 @@ export default function Ethers({ children }) {
   const withdrwBuy = async (id) => {
     try {
       const contract = getContract();
-      let res = await contract.withdrwBuy(id); //convert
+      let res = await contract.withdrwBuy(id); 
       await res.wait();
       alert(`Transaction Succeful`);
     } catch (e) {
@@ -207,6 +210,27 @@ export default function Ethers({ children }) {
       console.log(e);
     }
   };
+  const getIPDetails = async (_id) => {
+    try {
+      const contract = getContract();
+      const id = stringToBigInt(_id)
+      const res = await contract.getIPDetails(id); 
+      const uri = await contract.URI(id);
+      return {...res,uri};
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  const getUsergetUserLendings =async ()=>{
+    try {
+      const contract = getContract();
+      const account = await getWallet();
+      let res = await contract.getUsergetUserLendings(account);
+      return res;
+    } catch (e) {
+      console.log(e);
+    }
+  }
   const getWallet = async () => {
     try {
       if (currentAccount == null) {
@@ -292,6 +316,8 @@ export default function Ethers({ children }) {
         getLendingMarket,
         getUserIPs,
         getWallet,
+        getIPDetails,
+        getUsergetUserLendings
       }}
     >
       {children}

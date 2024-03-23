@@ -11,8 +11,6 @@ import { shortenAddress } from "../Utils/ShortenAddress";
 import { Button } from 'react-bootstrap';
 const companyCommonStyles = "min-h-[70px] sm:px-0 px-2 sm:min-w-[120px] flex justify-center items-center border-[0.5px] border-gray-400 text-sm font-light text-white";
 
-
-
 const Welcome = () => {
   const { currentAccount, connectWallet, L1 } = useContext(EthersContext)
   const navigate = useNavigate()

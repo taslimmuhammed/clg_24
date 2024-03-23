@@ -1,7 +1,7 @@
 import Button from 'react-bootstrap/Button';
 import React from 'react'
 import { shortenAddress } from '../Utils/ShortenAddress';
-import { shortenDesc } from '../Utils/utils';
+import { shortenDesc } from '../Utils/convertions';
 
 function BuyMarket() {
   const data = [

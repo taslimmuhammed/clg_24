@@ -21,6 +21,7 @@ export const BigNoToUSDT = (bigno) => {
     }
 
 }
+
 export const BigNoToInt = (bigno) => {
     try {
         let amount = parseInt(bigno._hex, 16)
@@ -77,7 +78,7 @@ export function HexToDateString(timestamp) {
     try {
         let date = parseInt(timestamp._hex, 16) * 1000
         date = new Date(date)
-        return `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`
+        return `${date.getFullYear()} / ${date.getMonth() + 1} / ${date.getDate()}`
     } catch (e) {
         //console.log(e);
         return ''
@@ -98,6 +99,13 @@ export const shortenDesc = (desc) => {
         return desc.substring(0, 30) + '...'
     } else {
         return desc;
+    }
+}
+export const shortenName = (name) => {
+    if (name && name.length > 15) {
+        return name.substring(0, 15) + '...'
+    } else {
+        return name;
     }
 }
 //0 - 0x0000000000000000000000000000000000000000

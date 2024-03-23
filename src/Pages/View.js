@@ -1,35 +1,30 @@
 import { MediaRenderer } from '@thirdweb-dev/react';
-import React from 'react'
+import React, { useState, useContext, useEffect } from "react"
 import { useParams } from "react-router-dom";
-
+import { EthersContext } from '../Context/EthersContext';
+import { BlockFunctions } from '../Utils/BlockFunctions';
+import { Link, useNavigate } from 'react-router-dom';
+import { Button } from 'react-bootstrap';
 function View() {
+  const navigate = useNavigate();
   const { id } = useParams();
-  const data = {
-    name: "Taslim Muhammed Moosa",
-    description: "This is a test project for thirdweb, this is a good project, this talks about the ip's this has a lot of feutues",
-    date: "25 dec 2025",
-    currentOwner: "0xd0cc32348E98f148E769f034A9C79b1C5a0e2A78",
-    owningHistory: [
-      {
-        owner: "0xd0cc32348E98f148E769f034A9C79b1C5a0e2A78",
-        timeStamp: "10 Dec 2021"
-      },
-      {
-        owner: "0xd0cc32348E98f148E769f034A9C79b1C5a0e2A78",
-        timeStamp: "10 Dec 2021"
-      }
-    ]
+  const { getIPDetails } = useContext(EthersContext)
+  const [Data, setData] = useState(null)
+  const intiator = async () => {
+    const ip = await getIPDetails(id);
+    const data = await BlockFunctions.getIPData(ip)
+    setData(data)
   }
+  useEffect(() => {
+    intiator()
+  }, [])
+  //styles
   const labelFont = "text-md text-amber-200"
   const itemFont = "inline-block text-sm"
   const glassTile = "bg-yellow-100 bg-opacity-20 backdrop-blur-lg rounded-md drop-shadow-lg text-white text-center py-5 "
-  const historyFont = {
-    date: "",
-    owner: "text-xxs"
-  }
   return (
     <div className='gradient-bg-welcome'>
-      <h1 className='text-center text-white text-5xl py-5'>Test Project</h1>
+      <h1 className='text-center text-white text-5xl py-5'>{Data && Data.name}</h1>
       {/* Details part */}
       <div className='flex w-full justify-center'>
         <div>
@@ -37,45 +32,56 @@ function View() {
           <div className='flex'>
             <div className={`${glassTile} w-64  mx-3`}>
               <div className={labelFont}>Creator</div>
-              <div className={itemFont}>Taslim Muhammed Moosa</div>
+              <div className={itemFont}>{Data && Data.creator}</div>
             </div>
             <div className={`${glassTile} w-96  mx-3 px-4`}>
               <div className={labelFont}>Current Owner </div>
-              <div className={itemFont}>{data.currentOwner}</div>
+              <div className={itemFont}>{Data && Data.currentOwner}</div>
             </div>
             <div className={`${glassTile} w-64  mx-3`}>
               <div className={labelFont}>Created on</div>
-              <div className={itemFont}>{data.date}</div>
+              <div className={itemFont}>{Data && Data.date}</div>
             </div>
           </div>
           {/*  second layer */}
           <div className='flex my-10'>
             <div className={`${glassTile} w-64  mx-3`}>
-              <div className={labelFont}>Owning History</div>
-              {
-                data.owningHistory.map((history, index) => {
-                  if (index == 0) {
-                    return (
-                      <div>
-                        <div className={historyFont.owner}>{history.owner}</div>
-                        <div className={historyFont.date}>{history.date}</div>
-                      </div>
-                    )
-                  }else{
-                    
-                  }
-                })
-              }
+              <div className={labelFont}>Market Activity</div>
+              <div className='flex  text-center ml-12 mt-3'>
+                <div className='mr-10'>Selling</div>
+                {(Data && Data.selling) ?
+                  <div className='text-green-700 font-medium'>Active</div> :
+                  <div className='text-red-700 font-medium'>Not Active</div>
+                }
 
+              </div>
+              <div className='flex  text-center ml-12 mt-2'>
+                <div className='mr-7 '>Lending</div>
+                {(Data && Data.lending) ?
+                  <div className='text-green-700 font-medium'>Active</div> :
+                  <div className='text-red-700 font-medium'>Not Active</div>
+                }
+              </div>
             </div>
             <div className={`${glassTile} w-96  mx-3 px-4`}>
               <div className={labelFont}>Description </div>
-              <div className={itemFont}>{data.description} This is a test project for thirdweb, this is a good project, this talks about the ip's this has a lot of feutues</div>
+              <div className={itemFont}>{Data && Data.descreption}</div>
             </div>
             <div className={`${glassTile} w-64  mx-3`}>
-              <div className={labelFont}>Lending History</div>
-              <div className={itemFont}>{data.date}</div>
+              <div className={labelFont}>Market Price</div>
+              <div className='flex  text-center ml-10 mt-3'>
+                <div className='mr-10'>Selling Price</div>
+                <div className='text-green-700 font-medium'>{Data && Data.buyingPrice} M</div>
+              </div>
+              <div className='flex  text-center ml-10 mt-2'>
+                <div className='mr-7'>Lending Price</div>
+                <div className='text-green-700 font-medium'>{Data && Data.lendingPrice} M</div>
+              </div>
             </div>
+          </div>
+          <div className=' w-full flex justify-evenly mt-20'>
+            <Button variant='warning' onClick={() => navigate(`/${id}/files`)}><div className='text-xl text-white w-40'>View Files</div></Button>
+            <Button variant='warning' onClick={() => navigate(`/${id}/history`)}><div className='text-xl text-white w-40'>View History</div></Button>
           </div>
         </div>
       </div>

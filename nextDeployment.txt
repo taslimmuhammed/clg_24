@@ -1,0 +1,2 @@
+change currentOrder to current order in every place including smart contract
+convert lendable and buyable to Selling and Lending
