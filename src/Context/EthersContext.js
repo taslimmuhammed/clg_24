@@ -63,43 +63,34 @@ export default function Ethers({ children }) {
   };
 
   const putforSell = async (id, price) => {
-    try {
-      const contract = getContract();
-      let res = await contract.putforSell(id, price); //convert
-      await res.wait();
-      alert(`Transaction Succeful`);
-    } catch (e) {
-      console.log(e);
-    }
+    const contract = getContract();
+    let res = await contract.putforSell(stringToBigInt(id), stringToBigInt(price));
+    await res.wait();
   };
   const putforLend = async (id, price) => {
-    try {
-      const contract = getContract();
-      let res = await contract.putforLend(id, price); //convert
-      await res.wait();
-      alert(`Transaction Succeful`);
-    } catch (e) {
-      console.log(e);
-    }
+    const contract = getContract();
+    let res = await contract.putforLend(stringToBigInt(id), stringToBigInt(price));
+    await res.wait();
   };
   const changeBuyingPrice = async (id, price) => {
-    try {
-      const contract = getContract();
-      let res = await contract.changeBuyingPrice(id, price); //convert
-      await res.wait();
-      alert(`Transaction Succeful`);
-    } catch (e) {
-      console.log(e);
-    }
+    const contract = getContract();
+    let res = await contract.changeBuyingPrice(stringToBigInt(id), stringToBigInt(price));
+    await res.wait();
   };
   const changeLendingPrice = async (id, price) => {
+    const contract = getContract();
+    let res = await contract.changeLendingPrice(stringToBigInt(id), stringToBigInt(price));
+    await res.wait();
+  };
+
+  const checkCurrentLendingStatus = async (id) => {
     try {
       const contract = getContract();
-      let res = await contract.changeLendingPrice(id, price); //convert
-      await res.wait();
-      alert(`Transaction Succeful`);
+      let res = await contract.checkCurrentLendingStatus(stringToBigInt(id));
+      console.log("onlend", res);
+      return res
     } catch (e) {
-      console.log(e);
+      return false
     }
   };
   const buy = async (id) => {
@@ -133,24 +124,14 @@ export default function Ethers({ children }) {
     }
   };
   const withdrwLend = async (id) => {
-    try {
-      const contract = getContract();
-      let res = await contract.withdrwLend(id); 
-      await res.wait();
-      alert(`Transaction Succeful`);
-    } catch (e) {
-      console.log(e);
-    }
+    const contract = getContract();
+    let res = await contract.withdrwLend(id);
+    await res.wait();
   };
   const withdrwBuy = async (id) => {
-    try {
-      const contract = getContract();
-      let res = await contract.withdrwBuy(id); 
-      await res.wait();
-      alert(`Transaction Succeful`);
-    } catch (e) {
-      console.log(e);
-    }
+    const contract = getContract();
+    let res = await contract.withdrwBuy(id);
+    await res.wait();
   };
 
   //Reading Functions------------------------------------------------------------------------------------
@@ -194,7 +175,7 @@ export default function Ethers({ children }) {
   const getLendingMarket = async (index) => {
     try {
       const contract = getContract();
-      let res = await contract.getLendingMarket((index - 1) * 10, index * 10); //convert
+      let res = await contract.getLendingMarket('0x0','0xfff'); //convert
       return res;
     } catch (e) {
       console.log(e);
@@ -214,14 +195,14 @@ export default function Ethers({ children }) {
     try {
       const contract = getContract();
       const id = stringToBigInt(_id)
-      const res = await contract.getIPDetails(id); 
+      const res = await contract.getIPDetails(id);
       const uri = await contract.URI(id);
-      return {...res,uri};
+      return { ...res, uri };
     } catch (e) {
       console.log(e);
     }
   };
-  const getUsergetUserLendings =async ()=>{
+  const getUsergetUserLendings = async () => {
     try {
       const contract = getContract();
       const account = await getWallet();
@@ -317,7 +298,8 @@ export default function Ethers({ children }) {
         getUserIPs,
         getWallet,
         getIPDetails,
-        getUsergetUserLendings
+        getUsergetUserLendings,
+        checkCurrentLendingStatus
       }}
     >
       {children}

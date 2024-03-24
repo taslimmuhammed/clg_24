@@ -33,7 +33,7 @@ function BuyMarket() {
   return (
     <div className="gradient-bg-welcome ">
       <h1 className='text-center text-white text-5xl py-5'>Buy IP's</h1>
-      <div class="flex w-full justify-center">
+      <div className="flex w-full justify-center">
         <div>
           {/* heading */}
           <div className='flex  text-xl bg-yellow-100 bg-opacity-30 backdrop-blur-lg rounded drop-shadow-lg mr-5 mb-3 text-white px-4  text-center'>

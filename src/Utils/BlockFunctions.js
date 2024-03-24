@@ -33,6 +33,8 @@ export const BlockFunctions = {
             data.selling = ip.buyable
             data.lending = ip.lendable
             data.lendingPrice = BigNoToInt(ip.lendingPrice)
+            data.price = BigNoToInt(ip.price)
+            console.log({ ip });
             data.buyingPrice = BigNoToInt(ip.buyingPrice)
             data.date = HexToDateString(ip.time)
             return data;

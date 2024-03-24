@@ -14,7 +14,7 @@ function HistoryPage() {
     setisLoading(true)
     const ip = await getIPDetails(id);
     const data = await BlockFunctions.getIPData(ip)
-    console.log({data});
+    console.log({ data });
     setData(data)
     setisLoading(false)
   }
@@ -29,8 +29,8 @@ function HistoryPage() {
           <div>
             <h2 className="text-xl text-white text-center">Owning History</h2>
             <div className='h_main'>
-              <div class="timeline">
-                <div class="outer">
+              <div className="timeline">
+                <div className="outer">
                   <HistoryBox />
                 </div>
               </div>
@@ -39,8 +39,8 @@ function HistoryPage() {
           <div>
             <h2 className="text-xl text-white text-center">Lending History</h2>
             <div className='h_main'>
-              <div class="timeline">
-                <div class="outer">
+              <div className="timeline">
+                <div className="outer">
                   <HistoryBox />
                 </div>
               </div>

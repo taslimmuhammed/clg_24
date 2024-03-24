@@ -5,18 +5,22 @@ import { Button } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { EthersContext } from '../Context/EthersContext';
 import { BlockFunctions } from '../Utils/BlockFunctions';
+import Loader from '../Components/Loader';
 
 function MyView() {
   const navigate = useNavigate();
   const { id } = useParams();
   const { getIPDetails } = useContext(EthersContext)
+  const [isLoading, setisLoading] = useState(false)
   const [Data, setData] = useState(null)
   const intiator = async () => {
+    setisLoading(true)
     const ip = await getIPDetails(id);
     console.log({ ip });
     const data = await BlockFunctions.getIPData(ip)
     console.log({ data });
     setData(data)
+    setisLoading(false)
   }
   useEffect(() => {
     intiator()
@@ -25,7 +29,8 @@ function MyView() {
   const labelFont = "text-md text-amber-200"
   const itemFont = "inline-block text-sm"
   const glassTile = "bg-yellow-100 bg-opacity-20 backdrop-blur-lg rounded-md drop-shadow-lg text-white text-center py-5 "
-  return (
+  return isLoading ? <div className='gradient-bg-welcome'><Loader /></div> :
+ (
     <div className='gradient-bg-welcome'>
       <h1 className='text-center text-white text-5xl py-5'>{Data && Data.name}</h1>
       {/* Details part */}
