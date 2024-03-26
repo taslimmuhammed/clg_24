@@ -98,11 +98,11 @@ export default function Ethers({ children }) {
     let res = await contract.buy(stringToBigInt(id)); //convert
     await res.wait();
   };
-  const lend = async (id, months,price) => {
+  const lend = async (id, months, price) => {
     const contract = getContract();
-    let value = parseInt(price)*parseInt(months);
+    let value = parseInt(price) * parseInt(months);
     console.log(stringToBigInt(id), stringToBigInt(months))
-    let res = await contract.lend(stringToBigInt(id), stringToBigInt(months),{value}); //convert
+    let res = await contract.lend(stringToBigInt(id), stringToBigInt(months), { value }); //convert
     await res.wait();
   };
   const transferOwnerShip = async (id, wallet) => {
@@ -115,14 +115,14 @@ export default function Ethers({ children }) {
       console.log(e);
     }
   };
-  const withdrwLend = async (id) => {
+  const withdrawLend = async (id) => {
     const contract = getContract();
-    let res = await contract.withdrwLend(id);
+    let res = await contract.withdrawLend(id);
     await res.wait();
   };
-  const withdrwBuy = async (id) => {
+  const withdrawSell = async (id) => {
     const contract = getContract();
-    let res = await contract.withdrwBuy(id);
+    let res = await contract.withdrawSell(id);
     await res.wait();
   };
 
@@ -194,11 +194,11 @@ export default function Ethers({ children }) {
       console.log(e);
     }
   };
-  const getUsergetUserLendings = async () => {
+  const getUserLendings = async () => {
     try {
       const contract = getContract();
       const account = await getWallet();
-      let res = await contract.getUsergetUserLendings(account);
+      let res = await contract.getUserLendings(account);
       return res;
     } catch (e) {
       console.log(e);
@@ -280,8 +280,8 @@ export default function Ethers({ children }) {
         buy,
         lend,
         transferOwnerShip,
-        withdrwLend,
-        withdrwBuy,
+        withdrawLend,
+        withdrawSell,
         checkLendablity,
         checkBuyablity,
         checkIPOwner,
@@ -290,7 +290,7 @@ export default function Ethers({ children }) {
         getUserIPs,
         getWallet,
         getIPDetails,
-        getUsergetUserLendings,
+        getUserLendings,
         checkCurrentLendingStatus
       }}
     >

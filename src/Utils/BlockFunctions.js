@@ -30,12 +30,12 @@ export const BlockFunctions = {
             let data = await BlockFunctions.storage.downloadJSON(ip.uri);
             data.currentOwner = ip.currenOwner
             data.id = ip.id
-            data.selling = ip.buyable
-            data.lending = ip.lendable
+            data.selling = ip.selling
+            data.lending = ip.lending
             data.lendingPrice = BigNoToInt(ip.lendingPrice)
             data.price = BigNoToInt(ip.price)
             console.log({ ip });
-            data.buyingPrice = BigNoToInt(ip.buyingPrice)
+            data.sellingPrice = BigNoToInt(ip.sellingPrice)
             data.date = HexToDateString(ip.time)
             return data;
         } catch (e) {

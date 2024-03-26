@@ -80,7 +80,7 @@ function BuyPage() {
                 <div className={labelFont}>Market Price</div>
                 <div className='flex  text-center ml-10 mt-3'>
                   <div className='mr-10'>Selling Price</div>
-                  <div className='text-green-700 font-medium'>{Data && Data.buyingPrice} M</div>
+                  <div className='text-green-700 font-medium'>{Data && Data.sellingPrice} M</div>
                 </div>
                 <div className='flex  text-center ml-10 mt-2'>
                   <div className='mr-7'>Lending Price</div>

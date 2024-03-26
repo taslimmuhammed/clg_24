@@ -79,7 +79,7 @@ function LendingPage() {
                 <div className={labelFont}>Market Price</div>
                 <div className='flex  text-center ml-10 mt-3'>
                   <div className='mr-10'>Selling Price</div>
-                  <div className='text-green-700 font-medium'>{Data && Data.buyingPrice} M</div>
+                  <div className='text-green-700 font-medium'>{Data && Data.sellingPrice} M</div>
                 </div>
                 <div className='flex  text-center ml-10 mt-2'>
                   <div className='mr-7'>Lending Price</div>
@@ -92,7 +92,7 @@ function LendingPage() {
               <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={() => setPopupVisible(true)}>
                 Lend IP
               </button>
-              <LendingPopup trigger={popupVisible} setTrigger={setPopupVisible} id={id} price={Data?.lendingPrice}/>
+              <LendingPopup trigger={popupVisible} setTrigger={setPopupVisible} id={id} price={Data?.lendingPrice} />
               <Button variant='warning' onClick={() => navigate(`/${id}/history`)}><div className='text-xl text-white w-40'>View History</div></Button>
             </div>
           </div>

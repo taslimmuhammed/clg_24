@@ -11,7 +11,7 @@ import { SiTurbosquid } from "react-icons/si";
 
 function ManagePage() {
     const { id } = useParams();
-    const { getIPDetails, putforSell, changeBuyingPrice, putforLend, changeLendingPrice, withdrwLend, withdrwBuy, checkCurrentLendingStatus } = useContext(EthersContext)
+    const { getIPDetails, putforSell, changeBuyingPrice, putforLend, changeLendingPrice, withdrawLend, withdrawSell, checkCurrentLendingStatus } = useContext(EthersContext)
     const [Data, setData] = useState(null)
     const [isLoading, setisLoading] = useState(false)
     const [OnLend, setOnLend] = useState(false)
@@ -34,8 +34,8 @@ function ManagePage() {
         { id: id, name: "Change Selling Price", fxn: changeBuyingPrice, params: [{ name: "price" }], setisLoading },
         { id: id, name: "Lend IP", fxn: putforLend, params: [{ name: "price" }], setisLoading },
         { id: id, name: "Change Lending Price", fxn: changeLendingPrice, params: [{ name: "price" }], setisLoading },
-        { id: id, name: "Withdraw from Lending", fxn: withdrwLend, params: [], setisLoading },
-        { id: id, name: "Withdraw from Selling", fxn: withdrwBuy, params: [], setisLoading },
+        { id: id, name: "Withdraw from Lending", fxn: withdrawLend, params: [], setisLoading },
+        { id: id, name: "Withdraw from Selling", fxn: withdrawSell, params: [], setisLoading },
     ]
     return isLoading ? <div className='gradient-bg-welcome'><Loader /></div> :
         (
@@ -56,44 +56,44 @@ function ManagePage() {
                                         }
                                     </td>
                                 </tr>
-                            <tr>
-                                <td className="w-40 py-3">Lending Market</td>
-                                <td>:</td>
-                                <td className="w-40">
-                                    {(Data && Data.lending) ?
-                                        <div className='flex font-medium'><GreenDot />Active</div> :
-                                        <div className='flex font-medium'><RedDot />Not Active</div>
-                                    }
-                                </td>
-                            </tr>
-                            <tr>
-                                <td className="w-40 py-3">On Lend</td>
-                                <td>:</td>
-                                <td className="w-40">
-                                    {(OnLend) ?
-                                        <div className='flex font-medium'><GreenDot />Active</div> :
-                                        <div className='flex font-medium'><RedDot />Not Active</div>
-                                    }
-                                </td>
-                            </tr>
-                            <tr>
-                                <td className="w-40 py-3">Selling price</td>
-                                <td>:</td>
-                                <td className="w-40">{Data && Data.buyingPrice} M</td>
-                            </tr>
-                            <tr>
-                                <td className="w-40 py-3">Lending Price</td>
-                                <td>:</td>
-                                <td className="w-40">{Data && Data.lendingPrice} M</td>
-                            </tr>
+                                <tr>
+                                    <td className="w-40 py-3">Lending Market</td>
+                                    <td>:</td>
+                                    <td className="w-40">
+                                        {(Data && Data.lending) ?
+                                            <div className='flex font-medium'><GreenDot />Active</div> :
+                                            <div className='flex font-medium'><RedDot />Not Active</div>
+                                        }
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td className="w-40 py-3">On Lend</td>
+                                    <td>:</td>
+                                    <td className="w-40">
+                                        {(OnLend) ?
+                                            <div className='flex font-medium'><GreenDot />Active</div> :
+                                            <div className='flex font-medium'><RedDot />Not Active</div>
+                                        }
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td className="w-40 py-3">Selling price</td>
+                                    <td>:</td>
+                                    <td className="w-40">{Data && Data.sellingPrice} M</td>
+                                </tr>
+                                <tr>
+                                    <td className="w-40 py-3">Lending Price</td>
+                                    <td>:</td>
+                                    <td className="w-40">{Data && Data.lendingPrice} M</td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
                     <table>
                         <tbody>
-                        {
-                            managers.map((manager, index) => (<InputRow details={manager} key={index} />))
-                        }
+                            {
+                                managers.map((manager, index) => (<InputRow details={manager} key={index} />))
+                            }
                         </tbody>
                     </table>
                 </div>

@@ -7,10 +7,10 @@ import { Link, useNavigate } from 'react-router-dom';
 import { BlockFunctions } from '../Utils/BlockFunctions';
 function UserLendings() {
     const navigate = useNavigate()
-    const { getUsergetUserLendings } = useContext(EthersContext)
+    const { getUserLendings } = useContext(EthersContext)
     const [IPs, setIPs] = useState([])
     const intiator = async () => {
-        const ipList = await getUsergetUserLendings();
+        const ipList = await getUserLendings();
         console.log(ipList);
         ipList.map(ip => {
             BlockFunctions.getIPData(ip).then(data => setIPs([data]))
@@ -37,7 +37,7 @@ function UserLendings() {
                     </div>
                     {/* table contents */}
                     {IPs.map((item, index) => {
-                        console.log({item});
+                        console.log({ item });
                         return (
                             <div className='flex  text-l bg-yellow-100 bg-opacity-20 backdrop-blur-lg rounded drop-shadow-lg py-1 mr-5 mb-3 text-white px-4 text-center' key={index}>
                                 <div className="w-40 py-2">{BigNoToInt(item.id)}</div>

@@ -141,7 +141,7 @@ export const abi = [
 				"type": "uint256"
 			}
 		],
-		"name": "withdrwBuy",
+		"name": "withdrawSell",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -154,7 +154,7 @@ export const abi = [
 				"type": "uint256"
 			}
 		],
-		"name": "withdrwLend",
+		"name": "withdrawLend",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -279,12 +279,12 @@ export const abi = [
 					},
 					{
 						"internalType": "bool",
-						"name": "lendable",
+						"name": "lending",
 						"type": "bool"
 					},
 					{
 						"internalType": "bool",
-						"name": "buyable",
+						"name": "selling",
 						"type": "bool"
 					},
 					{
@@ -389,17 +389,17 @@ export const abi = [
 					},
 					{
 						"internalType": "uint256",
-						"name": "buyingPrice",
+						"name": "sellingPrice",
 						"type": "uint256"
 					},
 					{
 						"internalType": "bool",
-						"name": "lendable",
+						"name": "lending",
 						"type": "bool"
 					},
 					{
 						"internalType": "bool",
-						"name": "buyable",
+						"name": "selling",
 						"type": "bool"
 					}
 				],
@@ -450,12 +450,12 @@ export const abi = [
 					},
 					{
 						"internalType": "bool",
-						"name": "lendable",
+						"name": "lending",
 						"type": "bool"
 					},
 					{
 						"internalType": "bool",
-						"name": "buyable",
+						"name": "selling",
 						"type": "bool"
 					},
 					{
@@ -480,7 +480,7 @@ export const abi = [
 				"type": "address"
 			}
 		],
-		"name": "getUsergetUserLendings",
+		"name": "getUserLendings",
 		"outputs": [
 			{
 				"components": [
@@ -547,12 +547,12 @@ export const abi = [
 					},
 					{
 						"internalType": "bool",
-						"name": "lendable",
+						"name": "lending",
 						"type": "bool"
 					},
 					{
 						"internalType": "bool",
-						"name": "buyable",
+						"name": "selling",
 						"type": "bool"
 					},
 					{
@@ -601,17 +601,17 @@ export const abi = [
 			},
 			{
 				"internalType": "uint256",
-				"name": "buyingPrice",
+				"name": "sellingPrice",
 				"type": "uint256"
 			},
 			{
 				"internalType": "bool",
-				"name": "lendable",
+				"name": "lending",
 				"type": "bool"
 			},
 			{
 				"internalType": "bool",
-				"name": "buyable",
+				"name": "selling",
 				"type": "bool"
 			}
 		],
