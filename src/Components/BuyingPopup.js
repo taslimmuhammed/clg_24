@@ -4,7 +4,7 @@ import { EthersContext } from "../Context/EthersContext";
 import { useNavigate } from 'react-router-dom';
 
 import Loader from "./Loader";
-const BuyingPopup = ({ trigger, setTrigger, id }) => {
+const BuyingPopup = ({ trigger, setTrigger, id ,price}) => {
     const navigate = useNavigate()
     const [isLoading, setisLoading] = useState(false)
     const { buy } = useContext(EthersContext)
@@ -14,7 +14,7 @@ const BuyingPopup = ({ trigger, setTrigger, id }) => {
     const handleSubmit = async () => {
         setisLoading(true)
         try {
-            await buy(id)
+            await buy(id,price)
             toast.success("Lending succeful")
             navigate("/you")
         } catch (error) {

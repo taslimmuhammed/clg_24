@@ -91,9 +91,9 @@ function BuyPage() {
             <div className=' w-full flex justify-evenly mt-20'>
               <Button variant='warning' onClick={() => navigate(`/${id}/files`)}><div className='text-xl text-white w-40'>View Files</div></Button>
               <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={() => setPopupVisible(true)}>
-                Lend IP
+                Buy IP
               </button>
-              <BuyingPopup trigger={popupVisible} setTrigger={setPopupVisible} id={id} />
+              <BuyingPopup trigger={popupVisible} setTrigger={setPopupVisible} id={id} price={Data?.sellingPrice }/>
               <Button variant='warning' onClick={() => navigate(`/${id}/history`)}><div className='text-xl text-white w-40'>View History</div></Button>
             </div>
           </div>

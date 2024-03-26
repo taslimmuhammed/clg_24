@@ -9,7 +9,7 @@ const { ethereum } = window;
 if (!ethereum) alert("Please install metamask to use the application");
 
 export default function Ethers({ children }) {
-  const contractAddress = "0x4A6F2bB531dCF92ce5E2f0165DA0a326CDEC0DAE";
+  const contractAddress = "0x2D4B152BDaB6Bb627934b93f64e6Bd66446798bf";
   const [currentAccount, setCurrentAccount] = useState(null);
   const provider = new ethers.providers.Web3Provider(ethereum);
   const signer = provider.getSigner();
@@ -93,14 +93,15 @@ export default function Ethers({ children }) {
       return false
     }
   };
-  const buy = async (id) => {
+  const buy = async (id,price) => {
     const contract = getContract();
-    let res = await contract.buy(stringToBigInt(id)); //convert
+    const value = parseInt(price)
+    let res = await contract.buy(stringToBigInt(id),{value}); //convert
     await res.wait();
   };
   const lend = async (id, months, price) => {
     const contract = getContract();
-    let value = parseInt(price) * parseInt(months);
+    const value = parseInt(price) * parseInt(months);
     console.log(stringToBigInt(id), stringToBigInt(months))
     let res = await contract.lend(stringToBigInt(id), stringToBigInt(months), { value }); //convert
     await res.wait();

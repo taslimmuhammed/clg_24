@@ -329,14 +329,14 @@ contract IPFY {
     function getUserLendings(address _user) public view returns (IPM[] memory) {
         uint256[] memory userIps = userLends[_user];
         uint256 len = userIps.length;
-        IPM[] memory ips = new IPM[](userOwnedIPs[_user].length);
+        IPM[] memory ips = new IPM[](len);
         for (uint256 i = 0; i < len; i++) {
             uint256 _id = userIps[i];
             IP memory _ip = IPDetails[_id];
             ips[i] = IPM(
                 _id,
                 _ip.currenOwner,
-                _ip.sellingPrice,
+                _ip.lendingPrice,
                 URI[_id],
                 _ip.lending,
                 _ip.selling,
@@ -349,6 +349,4 @@ contract IPFY {
     function getIPDetails(uint256 _id) public view returns (IP memory) {
         return IPDetails[_id];
     }
-    //getUserLendings
-    //getIPDetails
 }

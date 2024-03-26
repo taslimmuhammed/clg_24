@@ -13,8 +13,7 @@ function HistoryPage() {
   const intiator = async () => {
     setisLoading(true)
     const ip = await getIPDetails(id);
-    const data = await BlockFunctions.getIPData(ip)
-    console.log({ data });
+    const data = await BlockFunctions.getHistory(ip)
     setData(data)
     setisLoading(false)
   }
@@ -31,7 +30,11 @@ function HistoryPage() {
             <div className='h_main'>
               <div className="timeline">
                 <div className="outer">
-                  <HistoryBox />
+                  {
+                    Data?.owningHistory ?  Data.owningHistory.map((item, index) => (
+                      <HistoryBox key={index} wallet={item.wallet} from={item.start} to={item.end}/>
+                    )) : null
+                  }
                 </div>
               </div>
             </div>
@@ -41,7 +44,11 @@ function HistoryPage() {
             <div className='h_main'>
               <div className="timeline">
                 <div className="outer">
-                  <HistoryBox />
+                  {
+                    Data?.lendingHistory ? Data.lendingHistory.map((item, index) => (
+                      <HistoryBox key={index} wallet={item.wallet} from={item.start} to={item.end} />
+                    )) : <div className="text-orange-400"> No data available</div>
+                  }
                 </div>
               </div>
             </div>

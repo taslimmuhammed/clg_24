@@ -46,7 +46,7 @@ function BuyMarket() {
                 <div className="w-64 py-2">{shortenAddress(item.currentOwner)}</div>
                 <div className="w-40 py-2">{item.price}</div>
                 <div className="w-40 ">
-                  <Button variant="outline-warning" onClick={() => navigate(`/lend/${item.id}`)} >View</Button>
+                  <Button variant="outline-warning" onClick={() => navigate(`/buy/${item.id}`)} >View</Button>
                 </div>
               </div>
             )

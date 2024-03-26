@@ -141,7 +141,7 @@ export const abi = [
 				"type": "uint256"
 			}
 		],
-		"name": "withdrawSell",
+		"name": "withdrawLend",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -154,7 +154,7 @@ export const abi = [
 				"type": "uint256"
 			}
 		],
-		"name": "withdrawLend",
+		"name": "withdrawSell",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -480,7 +480,7 @@ export const abi = [
 				"type": "address"
 			}
 		],
-		"name": "getUserLendings",
+		"name": "getUserIPs",
 		"outputs": [
 			{
 				"components": [
@@ -490,22 +490,37 @@ export const abi = [
 						"type": "uint256"
 					},
 					{
-						"internalType": "uint256",
-						"name": "start",
-						"type": "uint256"
+						"internalType": "address",
+						"name": "currenOwner",
+						"type": "address"
 					},
 					{
 						"internalType": "uint256",
-						"name": "end",
+						"name": "price",
 						"type": "uint256"
 					},
 					{
+						"internalType": "string",
+						"name": "uri",
+						"type": "string"
+					},
+					{
+						"internalType": "bool",
+						"name": "lending",
+						"type": "bool"
+					},
+					{
+						"internalType": "bool",
+						"name": "selling",
+						"type": "bool"
+					},
+					{
 						"internalType": "uint256",
-						"name": "amount",
+						"name": "time",
 						"type": "uint256"
 					}
 				],
-				"internalType": "struct IPFY.Lend[]",
+				"internalType": "struct IPFY.IPM[]",
 				"name": "",
 				"type": "tuple[]"
 			}
@@ -521,7 +536,7 @@ export const abi = [
 				"type": "address"
 			}
 		],
-		"name": "getUserIPs",
+		"name": "getUserLendings",
 		"outputs": [
 			{
 				"components": [
@@ -654,22 +669,7 @@ export const abi = [
 		"outputs": [
 			{
 				"internalType": "uint256",
-				"name": "id",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "start",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "end",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "amount",
+				"name": "",
 				"type": "uint256"
 			}
 		],
