@@ -1,16 +1,34 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from "react"
+import { toast } from 'react-toastify';
+import { EthersContext } from "../Context/EthersContext";
+import Loader from "./Loader";
+import { useNavigate } from 'react-router-dom';
 
-const Popup = ({ trigger, setTrigger, handleSubmit }) => {
+const LendingPopup = ({ trigger, setTrigger, id,price }) => {
     const [months, setMonths] = useState('');
-
+    const navigate = useNavigate()
+    const [isLoading, setisLoading] = useState(false)
+    const { lend } = useContext(EthersContext)
     const handleClose = () => {
-        setMonths(''); // Reset input value when closing the popup
-        setTrigger(false); // Close the popup when the trigger is set to false
+        setMonths('');
+        setTrigger(false);
     };
-
+    const handleSubmit = async () => {
+        if (months == '') return toast.error("Please enter a valid number of months!");
+        setisLoading(true)
+        try {
+            await lend(id, months, price)
+            toast.success("Lending succeful")
+            navigate("/lendings")
+        } catch (error) {
+            toast.error(error?.reason);
+            console.log(error);
+        }
+        setisLoading(false)
+    }
     return trigger ? (
         <div className="fixed top-0 bottom-0 left-0 right-0 bg-black bg-opacity-50 flex justify-center items-center">
-            <div className="bg-white p-6 rounded-lg shadow-md w-80">
+            {isLoading ? <Loader /> : <div className="bg-white p-6 rounded-lg shadow-md w-80">
                 <button className="absolute top-2 right-2 text-gray-600 hover:text-gray-800" onClick={handleClose}>
                     Close
                 </button>
@@ -24,7 +42,7 @@ const Popup = ({ trigger, setTrigger, handleSubmit }) => {
                 />
                 <button
                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 rounded w-full mb-2"
-                    onClick={() => handleSubmit(months)}
+                    onClick={handleSubmit}
                 >
                     Buy
                 </button>
@@ -34,11 +52,11 @@ const Popup = ({ trigger, setTrigger, handleSubmit }) => {
                 >
                     Cancel
                 </button>
-            </div>
+            </div>}
         </div>
     ) : (
         ''
     );
 };
 
-export default Popup;
+export default LendingPopup;

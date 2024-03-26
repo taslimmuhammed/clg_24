@@ -94,24 +94,16 @@ export default function Ethers({ children }) {
     }
   };
   const buy = async (id) => {
-    try {
-      const contract = getContract();
-      let res = await contract.buy(id); //convert
-      await res.wait();
-      alert(`Transaction Succeful`);
-    } catch (e) {
-      console.log(e);
-    }
+    const contract = getContract();
+    let res = await contract.buy(stringToBigInt(id)); //convert
+    await res.wait();
   };
-  const lend = async (id, months) => {
-    try {
-      const contract = getContract();
-      let res = await contract.lend(id, months); //convert
-      await res.wait();
-      alert(`Transaction Succeful`);
-    } catch (e) {
-      console.log(e);
-    }
+  const lend = async (id, months,price) => {
+    const contract = getContract();
+    let value = parseInt(price)*parseInt(months);
+    console.log(stringToBigInt(id), stringToBigInt(months))
+    let res = await contract.lend(stringToBigInt(id), stringToBigInt(months),{value}); //convert
+    await res.wait();
   };
   const transferOwnerShip = async (id, wallet) => {
     try {
@@ -166,7 +158,7 @@ export default function Ethers({ children }) {
   const getBuyingMarket = async (index) => {
     try {
       const contract = getContract();
-      let res = await contract.getBuyingMarket((index - 1) * 10, index * 10); //convert
+      let res = await contract.getBuyingMarket('0x0', '0xfff')
       return res;
     } catch (e) {
       console.log(e);
@@ -175,7 +167,7 @@ export default function Ethers({ children }) {
   const getLendingMarket = async (index) => {
     try {
       const contract = getContract();
-      let res = await contract.getLendingMarket('0x0','0xfff'); //convert
+      let res = await contract.getLendingMarket('0x0', '0xfff'); //convert
       return res;
     } catch (e) {
       console.log(e);

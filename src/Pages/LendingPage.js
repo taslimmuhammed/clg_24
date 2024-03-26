@@ -5,7 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { EthersContext } from '../Context/EthersContext';
 import { BlockFunctions } from '../Utils/BlockFunctions';
 import Loader from "../Components/Loader";
-import Popup from "../Components/Popup";
+import LendingPopup from "../Components/LendingPopup";
 function LendingPage() {
   const navigate = useNavigate();
   const { id } = useParams();
@@ -92,7 +92,7 @@ function LendingPage() {
               <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={() => setPopupVisible(true)}>
                 Lend IP
               </button>
-              <Popup trigger={popupVisible} setTrigger={setPopupVisible}/>
+              <LendingPopup trigger={popupVisible} setTrigger={setPopupVisible} id={id} price={Data?.lendingPrice}/>
               <Button variant='warning' onClick={() => navigate(`/${id}/history`)}><div className='text-xl text-white w-40'>View History</div></Button>
             </div>
           </div>

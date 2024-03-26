@@ -2,7 +2,7 @@ import { MediaRenderer } from '@thirdweb-dev/react';
 import React, { useState, useContext, useEffect } from "react"
 import { useParams } from "react-router-dom";
 import { Button } from 'react-bootstrap';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { EthersContext } from '../Context/EthersContext';
 import { BlockFunctions } from '../Utils/BlockFunctions';
 import Loader from '../Components/Loader';

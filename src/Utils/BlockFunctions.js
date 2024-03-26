@@ -42,5 +42,5 @@ export const BlockFunctions = {
             return null
         }
 
-    }
+    },
 }
