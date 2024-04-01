@@ -1,6 +1,7 @@
 import { ThirdwebStorage } from "@thirdweb-dev/storage";
 import { BigNoToInt, HexToDateString } from "./convertions";
 
+
 export const BlockFunctions = {
     storage: new ThirdwebStorage({
         clientId: "d38b4842e9d041746be46984e4baab53", // You can get one from dashboard settings
@@ -52,9 +53,9 @@ export const BlockFunctions = {
             let owningHistory = [];
             const ownings = ip.owningHistory.length
             if (ip.owningHistory) {
-                for (let i = ownings -1; i >=0; i--) {
+                for (let i = ownings - 1; i >= 0; i--) {
                     const e = ip.owningHistory[i];
-                    let  temp = {}
+                    let temp = {}
                     temp.wallet = e.wallet
                     temp.start = HexToDateString(e.start)
                     temp.end = HexToDateString(e.end)
@@ -65,9 +66,9 @@ export const BlockFunctions = {
             const startDate = ownings ? HexToDateString(ip.owningHistory[ownings - 1].end) : HexToDateString(ip.time);
             owningHistory.push({
                 wallet: ip.currenOwner,
-                start:startDate,
+                start: startDate,
                 end: "current",
-                amount:'---'
+                amount: '---'
             })
             let lendingHistory = [];
             if (ip.lendingHistory) {
@@ -83,10 +84,11 @@ export const BlockFunctions = {
             }
             data.owningHistory = owningHistory
             data.lendingHistory = lendingHistory
-            console.log({data});
+            console.log({ data });
             return data;
         } catch (e) {
             return null
         }
-    }
+    },
+    
 }

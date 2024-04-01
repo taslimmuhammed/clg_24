@@ -4,8 +4,9 @@ import { EthersContext } from "../Context/EthersContext";
 import '../Styles/Create.css'
 import { Link, useNavigate } from 'react-router-dom';
 import { BlockFunctions } from "../Utils/BlockFunctions";
+import { FirebaseFunctions } from "../Utils/FirebaseFunctions";
 function Create() {
-    const { createIP } = useContext(EthersContext)
+    const { createIP, getIPCounter } = useContext(EthersContext)
     const navigate = useNavigate()
     const companyCommonStyles = "min-h-[70px] sm:px-0 px-2 sm:min-w-[120px] flex justify-center items-center border-[0.5px] border-gray-400 text-sm font-light text-white";
     const inputStyle = "my-2 w-full rounded-sm p-2 outline-none bg-transparent text-white border-none text-sm white-glassmorphism"
@@ -16,15 +17,17 @@ function Create() {
     const [isLoading, setIsLoading] = useState(false)
     const handleSubmit = async () => {
         setIsLoading(true)
-        // const cid = await BlockFunctions.uploadToIPFS(Files, Name, Creator, Description)
-        // console.log({cid})
-        const cid = "ipfs://QmdZu1NBvDzU7ByzcLAciRPhsbLKQbcYXpByQMh4JZddnr/0"
+        const cid = await BlockFunctions.uploadToIPFS(Files, Name, Creator, Description)
+        console.log({cid})
+        // const cid = "ipfs://QmdZu1NBvDzU7ByzcLAciRPhsbLKQbcYXpByQMh4JZddnr/0"
         if (cid == null) {
             setIsLoading(false)
             return alert("something went wrong, try filling up all the details")
         }
         const res = await createIP(cid);
         if (res) {
+            const id = await getIPCounter()
+            FirebaseFunctions.uploadIP(id,Name,Creator,Description)
             alert("IP Created Successfully!");
             navigate('/you')
         }

@@ -2,7 +2,7 @@
 pragma solidity ^0.8.0;
 
 contract IPFY {
-    uint256 IPCounter;
+    uint256 public IPCounter;
     mapping(uint256 => IP) public IPDetails;
     mapping(uint256 => string) public URI;
     mapping(address => uint256[]) public userOwnedIPs;
@@ -37,13 +37,14 @@ contract IPFY {
         uint256 time;
     }
 
-    function createIP(string memory _uri) public {
+    function createIP(string memory _uri) public returns (uint256) {
         IPCounter++;
         IPDetails[IPCounter].creator = msg.sender;
         IPDetails[IPCounter].currenOwner = msg.sender;
         IPDetails[IPCounter].time = block.timestamp;
         URI[IPCounter] = _uri;
         userOwnedIPs[msg.sender].push(IPCounter);
+        return IPCounter;
     }
 
     function putforSell(uint256 _id, uint256 _price) public {

@@ -12,6 +12,7 @@ const NavBarItem = ({ title, classprops }) => (
 const Navbar = () => {
   const navigate = useNavigate()
   const [toggleMenu, setToggleMenu] = useState(false);
+  const [SearchText, setSearchText] = useState("")
    const navs = ["", "view","transfer", ""]
 
   return (
@@ -26,9 +27,9 @@ const Navbar = () => {
       <li onClick={() => navigate('/buy')} className="navbar_item">buy</li>
          
         <li>
-          <input onChange={(e)=>{}} placeholder="Enter product Id" className="search-bar" ></input>
+          <input onChange={(e)=>{setSearchText(e.target.value)}} placeholder="Enter product Id" className="search-bar" ></input>
         </li>
-        <li className="bg-[#2952e3] py-2 px-7 mx-4 rounded-full cursor-pointer hover:bg-[#2546bd]" onClick={()=>navigate('/view')}>
+        <li className="bg-[#2952e3] py-2 px-7 mx-4 rounded-full cursor-pointer hover:bg-[#2546bd]" onClick={()=>navigate(`search/${SearchText}`)}>
           Search
         </li>
       </ul>

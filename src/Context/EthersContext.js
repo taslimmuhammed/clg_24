@@ -2,14 +2,14 @@ import { ethers } from "ethers";
 import { createContext, useState, useEffect } from "react";
 import { abi } from "../Utils/abi";
 import { useNavigate } from "react-router-dom";
-import { stringToBigInt } from "../Utils/convertions";
+import { BigNoToInt, stringToBigInt } from "../Utils/convertions";
 
 export const EthersContext = createContext(null);
 const { ethereum } = window;
 if (!ethereum) alert("Please install metamask to use the application");
 
 export default function Ethers({ children }) {
-  const contractAddress = "0x2D4B152BDaB6Bb627934b93f64e6Bd66446798bf";
+  const contractAddress = "0x6d04EBDC75e1d6a0b3E8Cf4b858F199064604d16";
   const [currentAccount, setCurrentAccount] = useState(null);
   const provider = new ethers.providers.Web3Provider(ethereum);
   const signer = provider.getSigner();
@@ -54,14 +54,15 @@ export default function Ethers({ children }) {
     try {
       const contract = getContract();
       let res = await contract.createIP(uri);
-      await res.wait();
+      let r2 = await res.wait();
+      console.log({res, r2})
       return true;
     } catch (e) {
       console.log(e);
       return false;
     }
   };
-
+  
   const putforSell = async (id, price) => {
     const contract = getContract();
     let res = await contract.putforSell(stringToBigInt(id), stringToBigInt(price));
@@ -93,10 +94,10 @@ export default function Ethers({ children }) {
       return false
     }
   };
-  const buy = async (id,price) => {
+  const buy = async (id, price) => {
     const contract = getContract();
     const value = parseInt(price)
-    let res = await contract.buy(stringToBigInt(id),{value}); //convert
+    let res = await contract.buy(stringToBigInt(id), { value }); //convert
     await res.wait();
   };
   const lend = async (id, months, price) => {
@@ -205,6 +206,15 @@ export default function Ethers({ children }) {
       console.log(e);
     }
   }
+  const getIPCounter = async () => {
+    try {
+      const contract = getContract();
+      let res = await contract.IPCounter();
+      return BigNoToInt(res);
+    } catch (e) {
+      console.log(e);
+    }
+  }
   const getWallet = async () => {
     try {
       if (currentAccount == null) {
@@ -292,7 +302,8 @@ export default function Ethers({ children }) {
         getWallet,
         getIPDetails,
         getUserLendings,
-        checkCurrentLendingStatus
+        checkCurrentLendingStatus,
+        getIPCounter
       }}
     >
       {children}
