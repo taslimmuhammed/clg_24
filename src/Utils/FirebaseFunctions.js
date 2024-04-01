@@ -13,14 +13,15 @@ export const FirebaseFunctions = {
 
         }
     },
-    getData: async (text) => {
+    getData: async (txt) => {
         try {
+            const text = txt.toLowerCase()
             const querySnapshot = await getDocs(collection(db, "ip"));
             let ips = []
             querySnapshot.forEach(doc => {
                 const data = doc.data();
-                if (FirebaseFunctions.searchText(data,text)) {
-                    ips.push({ ...data})
+                if (FirebaseFunctions.searchText(data, text)) {
+                    ips.push({ ...data })
                 }
             });
             return ips;
@@ -28,14 +29,14 @@ export const FirebaseFunctions = {
             return []
         }
     },
-    searchText:(data, text)=>{
-        if(
+    searchText: (data, text) => {
+        if (
             FirebaseFunctions.KMP(data.id, text) ||
-            FirebaseFunctions.KMP(data.description, text) ||
-            FirebaseFunctions.KMP(data.name, text) ||
-            FirebaseFunctions.KMP(data.creator, text))
+            FirebaseFunctions.KMP(data.description.toLowerCase(), text) ||
+            FirebaseFunctions.KMP(data.name.toLowerCase(), text) ||
+            FirebaseFunctions.KMP(data.creator.toLowerCase(), text))
             return true;
-        
+
         return false
     },
     KMP: (text, pattern) => {

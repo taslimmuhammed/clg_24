@@ -11,9 +11,12 @@ function MyWorks() {
   const [IPs, setIPs] = useState([])
   const intiator = async () => {
     const ipList = await getUserIPs();
-    ipList.map(ip => {
-      BlockFunctions.getIPData(ip).then(data => setIPs([data]))
-    })
+    let ips = []
+    if (ipList.length > 0)
+    for (let i = 0; i < ipList.length; i++) {
+       ips.push(await BlockFunctions.getIPData(ipList[i]))
+    }
+    setIPs(ips)
   }
   useEffect(() => {
     intiator()
