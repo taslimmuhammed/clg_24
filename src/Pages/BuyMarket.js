@@ -25,7 +25,7 @@ function BuyMarket() {
 
   return (
     <div className="gradient-bg-welcome ">
-      <h1 className='text-center text-white text-5xl py-5'>Lending Market</h1>
+      <h1 className='text-center text-white text-5xl py-5'>Buying Market</h1>
       <div className="flex w-full justify-center">
         <div>
           {/*table heading */}
