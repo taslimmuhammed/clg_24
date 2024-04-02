@@ -24,7 +24,7 @@ function UserLendings() {
 
     return (
         <div className="gradient-bg-welcome ">
-            <h1 className='text-center text-white text-5xl py-5'>Your IP's</h1>
+            <h1 className='text-center text-white text-5xl py-5'>Lended IP's</h1>
             <div className="flex w-full justify-center">
                 <div>
                     {/*table heading */}
