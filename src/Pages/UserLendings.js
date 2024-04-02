@@ -49,7 +49,7 @@ function UserLendings() {
                                 <div className="w-64 py-2">{shortenAddress(item.currentOwner)}</div>
                                 <div className="w-40 py-2">{item.date}</div>
                                 <div className="w-40 ">
-                                    <Button variant="outline-warning" onClick={() => navigate(`/you/${item.id}`)} >View</Button>
+                                    <Button variant="outline-warning" onClick={() => navigate(`/view/${item.id}`)} >View</Button>
                                 </div>
                             </div>
                         )

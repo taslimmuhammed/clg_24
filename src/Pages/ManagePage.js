@@ -7,7 +7,6 @@ import { stringToBigInt } from "../Utils/convertions";
 import InputRow from "../Components/InputRow";
 import GreenDot from "../Components/GreenDot";
 import RedDot from "../Components/RedDot";
-import { SiTurbosquid } from "react-icons/si";
 
 function ManagePage() {
     const { id } = useParams();
