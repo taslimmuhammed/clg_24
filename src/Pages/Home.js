@@ -11,9 +11,9 @@ function Home() {
      <Navbar></Navbar>
      <Welcome></Welcome>
      </div>
-     <Services/>
-     <Patents></Patents>
-     <Footer/> 
+     {/* <Services/>
+     <Patents></Patents> */}
+     {/* <Footer/>  */}
     </div>
   )
 }
