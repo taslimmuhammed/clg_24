@@ -21,8 +21,6 @@ function ManagePage() {
         { id: id, name: "Lend IP", fxn: putforLend, params: [{ name: "price" }], setisLoading },
         { id: id, name: "Change Selling Price", fxn: changeBuyingPrice, params: [{ name: "price" }], setisLoading },
         { id: id, name: "Change Lending Price", fxn: changeLendingPrice, params: [{ name: "price" }], setisLoading },
-        { id: id, name: "Withdraw from Lending", fxn: withdrawLend, params: [], setisLoading },
-        { id: id, name: "Withdraw from Selling", fxn: withdrawSell, params: [], setisLoading },
     ]
     const managersLending = [
         { id: id, name: "Change Lending Price", fxn: changeLendingPrice, params: [{ name: "price" }], setisLoading },
