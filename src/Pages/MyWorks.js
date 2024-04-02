@@ -5,11 +5,14 @@ import { BigNoToDC, BigNoToInt, shortenDesc, shortenName } from '../Utils/conver
 import { EthersContext } from "../Context/EthersContext";
 import { Link, useNavigate } from 'react-router-dom';
 import { BlockFunctions } from '../Utils/BlockFunctions';
+import Loader from '../Components/Loader';
 function MyWorks() {
   const navigate = useNavigate()
   const { getUserIPs } = useContext(EthersContext)
   const [IPs, setIPs] = useState([])
+  const [isLoading, setisLoading] = useState(false)
   const intiator = async () => {
+    setisLoading(true)
     const ipList = await getUserIPs();
     let ips = []
     if (ipList.length > 0)
@@ -17,6 +20,7 @@ function MyWorks() {
        ips.push(await BlockFunctions.getIPData(ipList[i]))
     }
     setIPs(ips)
+    setisLoading(false)
   }
   useEffect(() => {
     intiator()
@@ -25,7 +29,9 @@ function MyWorks() {
   return (
     <div className="gradient-bg-welcome ">
       <h1 className='text-center text-white text-5xl py-5'>Your IP's</h1>
-      <div className="flex w-full justify-center">
+      {
+        isLoading?<Loader/>:
+        <div className="flex w-full justify-center">
         <div>
           {/*table heading */}
           <div className='flex text-xl bg-yellow-100 bg-opacity-30 backdrop-blur-lg rounded drop-shadow-lg mr-5 mb-3 text-white px-4  text-center'>
@@ -54,7 +60,7 @@ function MyWorks() {
             )
           })}
         </div>
-      </div>
+      </div>}
     </div>
   )
 }
