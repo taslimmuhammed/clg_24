@@ -6,6 +6,7 @@ import { EthersContext } from "../Context/EthersContext";
 import { useParams, useNavigate } from 'react-router-dom';
 import { BlockFunctions } from '../Utils/BlockFunctions';
 import { FirebaseFunctions } from '../Utils/FirebaseFunctions';
+import Loader from '../Components/Loader';
 function SearchPage() {
   const navigate = useNavigate()
   const { searchText } = useParams();
@@ -24,7 +25,7 @@ function SearchPage() {
   return (
     <div className="gradient-bg-welcome ">
       <h1 className='text-center text-white text-5xl py-5'>Lending Market</h1>
-      <div className="flex w-full justify-center">
+      {isLoading?<Loader/>:<div className="flex w-full justify-center">
         <div>
           {/*table heading */}
           <div className='flex text-xl bg-yellow-100 bg-opacity-30 backdrop-blur-lg rounded drop-shadow-lg mr-5 mb-3 text-white px-4  text-center'>
@@ -49,7 +50,7 @@ function SearchPage() {
             )
           })}
         </div>
-      </div>
+      </div>}
     </div>
   )
 }
