@@ -5,11 +5,14 @@ import { BigNoToDC, BigNoToInt, shortenDesc, shortenName } from '../Utils/conver
 import { EthersContext } from "../Context/EthersContext";
 import { Link, useNavigate } from 'react-router-dom';
 import { BlockFunctions } from '../Utils/BlockFunctions';
+import Loader from '../Components/Loader';
 function UserLendings() {
     const navigate = useNavigate()
     const { getUserLendings } = useContext(EthersContext)
     const [IPs, setIPs] = useState([])
+    const [isLoading, setisLoading] = useState(false)
     const intiator = async () => {
+        setisLoading(true)
         const ipList = await getUserLendings();
         let ips = []
         if (ipList.length > 0)
@@ -17,6 +20,7 @@ function UserLendings() {
                 ips.push(await BlockFunctions.getIPData(ipList[i]))
             }
         setIPs(ips)
+        setisLoading(false)
     }
     useEffect(() => {
         intiator()
@@ -25,6 +29,7 @@ function UserLendings() {
     return (
         <div className="gradient-bg-welcome ">
             <h1 className='text-center text-white text-5xl py-5'>Lended IP's</h1>
+            {isLoading?<Loader/>:
             <div className="flex w-full justify-center">
                 <div>
                     {/*table heading */}
@@ -55,7 +60,7 @@ function UserLendings() {
                         )
                     })}
                 </div>
-            </div>
+            </div>}
         </div>
     )
 }
