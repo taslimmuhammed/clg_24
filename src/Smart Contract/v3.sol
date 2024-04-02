@@ -129,7 +129,7 @@ contract IPFY {
         IPDetails[_id].lendingHistory.push(
             History(
                 block.timestamp,
-                block.timestamp + months * 30 days * months,
+                block.timestamp + months * 30 days,
                 IPDetails[_id].lendingPrice,
                 msg.sender
             )

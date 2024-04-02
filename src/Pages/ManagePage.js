@@ -15,13 +15,39 @@ function ManagePage() {
     const [Data, setData] = useState(null)
     const [isLoading, setisLoading] = useState(false)
     const [OnLend, setOnLend] = useState(false)
+    const [Managers, setManagers] = useState([])
     const glassTile = "bg-yellow-100 bg-opacity-20 backdrop-blur-lg rounded-md drop-shadow-lg text-white text-center py-5 "
+    const managersNormal = [
+        { id: id, name: "Sell IP", fxn: putforSell, params: [{ name: "price" }], setisLoading },
+        { id: id, name: "Lend IP", fxn: putforLend, params: [{ name: "price" }], setisLoading },
+        { id: id, name: "Change Selling Price", fxn: changeBuyingPrice, params: [{ name: "price" }], setisLoading },
+        { id: id, name: "Change Lending Price", fxn: changeLendingPrice, params: [{ name: "price" }], setisLoading },
+        { id: id, name: "Withdraw from Lending", fxn: withdrawLend, params: [], setisLoading },
+        { id: id, name: "Withdraw from Selling", fxn: withdrawSell, params: [], setisLoading },
+    ]
+    const managersLending = [
+        { id: id, name: "Change Lending Price", fxn: changeLendingPrice, params: [{ name: "price" }], setisLoading },
+        { id: id, name: "Withdraw from Lending", fxn: withdrawLend, params: [], setisLoading },
+    ]
+    const managersSelling=[
+        { id: id, name: "Change Selling Price", fxn: changeBuyingPrice, params: [{ name: "price" }], setisLoading },
+        { id: id, name: "Withdraw from Selling", fxn: withdrawSell, params: [], setisLoading },
+    ]
+    const managersOnLend = [
+        { id: id, name: "Change Selling Price", fxn: changeBuyingPrice, params: [{ name: "price" }], setisLoading },
+        { id: id, name: "Change Lending Price", fxn: changeLendingPrice, params: [{ name: "price" }], setisLoading },
+    ]
     const intiator = async () => {
         setisLoading(true)
         const ip = await getIPDetails(id);
         const data = await BlockFunctions.getIPData(ip)
         const onlend = await checkCurrentLendingStatus(id);
-        console.log({ data });
+        if (onlend) setManagers(managersOnLend)
+        else if (data?.selling)
+            setManagers(managersSelling)
+        else if (data?.lending) 
+            setManagers(managersLending)
+        else setManagers(managersNormal)
         setData(data)
         setOnLend(onlend)
         setisLoading(false)
@@ -29,14 +55,7 @@ function ManagePage() {
     useEffect(() => {
         intiator()
     }, [])
-    const managers = [
-        { id: id, name: "Sell IP", fxn: putforSell, params: [{ name: "price" }], setisLoading },
-        { id: id, name: "Change Selling Price", fxn: changeBuyingPrice, params: [{ name: "price" }], setisLoading },
-        { id: id, name: "Lend IP", fxn: putforLend, params: [{ name: "price" }], setisLoading },
-        { id: id, name: "Change Lending Price", fxn: changeLendingPrice, params: [{ name: "price" }], setisLoading },
-        { id: id, name: "Withdraw from Lending", fxn: withdrawLend, params: [], setisLoading },
-        { id: id, name: "Withdraw from Selling", fxn: withdrawSell, params: [], setisLoading },
-    ]
+
     return isLoading ? <div className='gradient-bg-welcome'><Loader /></div> :
         (
             <div className='gradient-bg-welcome'>
@@ -92,7 +111,7 @@ function ManagePage() {
                     <table>
                         <tbody>
                             {
-                                managers.map((manager, index) => (<InputRow details={manager} key={index} />))
+                                Managers.map((manager, index) => (<InputRow details={manager} key={index} />))
                             }
                         </tbody>
                     </table>
