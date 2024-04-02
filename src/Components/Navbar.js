@@ -28,6 +28,7 @@ const Navbar = () => {
       </div>
       <ul className="text-white md:flex hidden list-none flex-row justify-between items-center flex-initial">
         <li onClick={() => navigate('/you')} className="navbar_item">Your Works</li>
+        <li onClick={() => navigate('/lendings')} className="navbar_item">Your Lendings</li>
         <li onClick={() => navigate('/create')} className="navbar_item">Create</li>
         <li onClick={() => navigate('/lend')} className="navbar_item">lend</li>
         <li onClick={() => navigate('/buy')} className="navbar_item">buy</li>
