@@ -15,7 +15,7 @@ const BuyingPopup = ({ trigger, setTrigger, id ,price}) => {
         setisLoading(true)
         try {
             await buy(id,price)
-            toast.success("Lending succeful")
+            toast.success("Buying succeful")
             navigate("/you")
         } catch (error) {
             toast.error(error?.reason);

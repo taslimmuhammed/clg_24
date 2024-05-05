@@ -11,13 +11,18 @@ function LendMarket() {
   const { getLendingMarket } = useContext(EthersContext)
   const [IPs, setIPs] = useState([])
   const intiator = async () => {
-    const ipList = await getLendingMarket();
-    let ips = []
-    if (ipList.length > 0)
-      for (let i = 0; i < ipList.length; i++) {
-        ips.push(await BlockFunctions.getIPData(ipList[i]))
-      }
-    setIPs(ips)
+    try{
+      const ipList = await getLendingMarket();
+      console.log(ipList);
+      let ips = []
+      if (ipList.length > 0)
+        for (let i = 0; i < ipList.length; i++) {
+          ips.push(await BlockFunctions.getIPData(ipList[i]))
+        }
+      setIPs(ips)
+    }catch(e){
+      console.log(e);
+    }
   }
   useEffect(() => {
     intiator()

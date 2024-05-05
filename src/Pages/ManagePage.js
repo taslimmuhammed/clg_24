@@ -31,16 +31,21 @@ function ManagePage() {
         { id: id, name: "Withdraw from Selling", fxn: withdrawSell, params: [], setisLoading },
     ]
     const managersOnLend = [
+        { id: id, name: "Sell IP", fxn: putforSell, params: [{ name: "price" }], setisLoading },
         { id: id, name: "Change Selling Price", fxn: changeBuyingPrice, params: [{ name: "price" }], setisLoading },
         { id: id, name: "Change Lending Price", fxn: changeLendingPrice, params: [{ name: "price" }], setisLoading },
     ]
+    // const managersOnLendAndSell = [
+    //     { id: id, name: "Change Selling Price", fxn: changeBuyingPrice, params: [{ name: "price" }], setisLoading },
+    //     { id: id, name: "Change Lending Price", fxn: changeLendingPrice, params: [{ name: "price" }], setisLoading },
+    // ]
     const intiator = async () => {
         setisLoading(true)
         const ip = await getIPDetails(id);
         const data = await BlockFunctions.getIPData(ip)
         const onlend = await checkCurrentLendingStatus(id);
         if (onlend) setManagers(managersOnLend)
-        else if (data?.selling)
+        if (data?.selling)
             setManagers(managersSelling)
         else if (data?.lending) 
             setManagers(managersLending)
