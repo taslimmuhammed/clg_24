@@ -37,14 +37,13 @@ contract IPFY {
         uint256 time;
     }
 
-    function createIP(string memory _uri) public returns (uint256) {
+    function createIP(string memory _uri) public  {
         IPCounter++;
         IPDetails[IPCounter].creator = msg.sender;
         IPDetails[IPCounter].currenOwner = msg.sender;
         IPDetails[IPCounter].time = block.timestamp;
         URI[IPCounter] = _uri;
         userOwnedIPs[msg.sender].push(IPCounter);
-        return IPCounter;
     }
 
     function putforSell(uint256 _id, uint256 _price) public {

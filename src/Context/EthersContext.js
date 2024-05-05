@@ -9,7 +9,7 @@ const { ethereum } = window;
 if (!ethereum) alert("Please install metamask to use the application");
 
 export default function Ethers({ children }) {
-  const contractAddress = "0x319301D85A72F0FfFA5AD51219FbBb8F60d23D9A";
+  const contractAddress = "0x6900e8D5fdB477De8a18175f2ed2029031c97adc";
   const [currentAccount, setCurrentAccount] = useState(null);
   const provider = new ethers.providers.Web3Provider(ethereum);
   const signer = provider.getSigner();

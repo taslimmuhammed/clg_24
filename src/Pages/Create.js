@@ -21,7 +21,7 @@ function Create() {
         console.log({cid})
         // const cid = "ipfs://QmdZu1NBvDzU7ByzcLAciRPhsbLKQbcYXpByQMh4JZddnr/0"
         if (cid == null) {
-            setIsLoading(false)
+            setIsLoading(false) 
             return alert("something went wrong, try filling up all the details")
         }
         const res = await createIP(cid);
